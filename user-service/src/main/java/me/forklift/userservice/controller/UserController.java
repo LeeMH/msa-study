@@ -4,10 +4,13 @@ import me.forklift.userservice.dto.UserDto;
 import me.forklift.userservice.service.UserService;
 import me.forklift.userservice.vo.Greeting;
 import me.forklift.userservice.vo.RequestUser;
+import me.forklift.userservice.vo.ResponseUser;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -39,13 +42,15 @@ public class UserController {
 
 
     @PostMapping("/users")
-    public String createUser(@RequestBody RequestUser requestUser) {
+    public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser requestUser) {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         UserDto userDto = mapper.map(requestUser, UserDto.class);
         userService.createUser(userDto);
 
-        return "created user";
+        ResponseUser responseUser = mapper.map(userDto, ResponseUser.class);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 }
