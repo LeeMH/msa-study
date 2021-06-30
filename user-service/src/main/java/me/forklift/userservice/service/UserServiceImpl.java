@@ -6,14 +6,20 @@ import me.forklift.userservice.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService{
+    UserRepository repository;
+    BCryptPasswordEncoder encoder;
 
     @Autowired
-    UserRepository repository;
+    public UserServiceImpl(UserRepository repository, BCryptPasswordEncoder encoder) {
+        this.repository = repository;
+        this.encoder = encoder;
+    }
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -22,7 +28,7 @@ public class UserServiceImpl implements UserService{
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserEntity userEntity = mapper.map(userDto, UserEntity.class);
-        userEntity.setEncryptedPassword("encrypted_password");
+        userEntity.setEncryptedPassword(encoder.encode(userDto.getPassword()));
 
         repository.save(userEntity);
 
