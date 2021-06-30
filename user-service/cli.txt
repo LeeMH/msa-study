@@ -1,0 +1,1 @@
+curl -H "Content-type: application/json" -X POST http://192.168.0.4:44407/users -d '{"email": "mhlee@pay-story.co.kr", "name": "mhlee", "password": "hello"}'
