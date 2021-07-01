@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user-service")
 public class UserController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/health_check")
     public String status() {
-        return "it's working";
+        return String.format("it's working. port = %s", env.getProperty("local.server.port"));
     }
 
     @GetMapping("/welcome")
@@ -50,6 +50,7 @@ public class UserController {
         userService.createUser(userDto);
 
         ResponseUser responseUser = mapper.map(userDto, ResponseUser.class);
+
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
