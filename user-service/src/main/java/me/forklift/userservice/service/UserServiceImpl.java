@@ -3,11 +3,17 @@ package me.forklift.userservice.service;
 import me.forklift.userservice.dto.UserDto;
 import me.forklift.userservice.repository.UserEntity;
 import me.forklift.userservice.repository.UserRepository;
+import me.forklift.userservice.vo.ResponseOrder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -35,5 +41,25 @@ public class UserServiceImpl implements UserService{
         UserDto returnUserDto = mapper.map(userEntity, UserDto.class);
 
         return returnUserDto;
+    }
+
+    @Override
+    public UserDto getUserByUserId(String userId) {
+        UserEntity user = repository.findByUserId(userId);
+
+        if (user == null)
+            throw new UsernameNotFoundException("user not found");
+
+        UserDto userDto = new ModelMapper().map(user, UserDto.class);
+
+        List<ResponseOrder> orders = new ArrayList<>();
+        userDto.setOrders(orders);
+
+        return userDto;
+    }
+
+    @Override
+    public Iterable<UserEntity> getUserByAll() {
+        return repository.findAll();
     }
 }
