@@ -34,7 +34,7 @@ public class CatalogController {
         return String.format("it's working. port = %s", env.getProperty("local.server.port"));
     }
 
-    @PostMapping("/catalogs")
+    @GetMapping("/catalogs")
     public ResponseEntity<List<ResponseCatalog>> catalogs() {
         Iterable<CatalogEntity> catalogList = service.getAllCatalogs();
 
