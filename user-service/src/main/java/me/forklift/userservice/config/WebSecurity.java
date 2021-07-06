@@ -1,8 +1,6 @@
 package me.forklift.userservice.config;
 
-import com.netflix.discovery.converters.Auto;
 import me.forklift.userservice.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -42,8 +40,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
-        authenticationFilter.setAuthenticationManager(authenticationManager());
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager(), userService, env);
+        //authenticationFilter.setAuthenticationManager(authenticationManager());
 
         return authenticationFilter;
     }

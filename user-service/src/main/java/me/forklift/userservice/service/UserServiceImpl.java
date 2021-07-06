@@ -60,6 +60,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto getUserByEmail(String email) {
+        UserEntity user = repository.findByEmail(email);
+        UserDto userDto = new ModelMapper().map(user, UserDto.class);
+
+        if (user == null) throw new UsernameNotFoundException("존재하지 않는 사용자 입니다.");
+
+        return userDto;
+    }
+
+    @Override
     public Iterable<UserEntity> getUserByAll() {
         return repository.findAll();
     }
