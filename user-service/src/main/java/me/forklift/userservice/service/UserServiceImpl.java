@@ -7,6 +7,8 @@ import me.forklift.userservice.vo.ResponseOrder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     UserRepository repository;
     BCryptPasswordEncoder encoder;
 
@@ -60,5 +62,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public Iterable<UserEntity> getUserByAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserEntity userEntity = repository.findByEmail(email);
+        if (userEntity == null)
+            throw new UsernameNotFoundException(String.format("[%s] 이메일 사용자를 찾을수 없습니다.", email));
+
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(),
+                true, true, true, true,
+                new ArrayList<>());
     }
 }
