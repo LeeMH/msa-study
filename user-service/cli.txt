@@ -4,3 +4,5 @@ curl -H "Content-type: application/json" -X POST http://localhost:8000/user-serv
 curl -H "Content-type: application/json" -X GET http://localhost:8000/user-service/users
 
 curl -H "Content-type: application/json" -X GET http://localhost:8000/user-service/users/24b472f5-d2a1-44d1-8b49-29ffa87e4cf7
+
+curl -v -H "Content-type: application/json" -X POST http://localhost:8000/user-service/login -d '{"email": "mhlee@pay-story.co.kr", "password": "hello"}'

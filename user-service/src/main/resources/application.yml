@@ -33,3 +33,11 @@ eureka:
 
 greeting:
   message: Welcome to the msa world!!
+
+logging:
+  level:
+    me.forklift.userservice: DEBUG
+
+token:
+  expiration_time: 86400000
+  secret: user_token
