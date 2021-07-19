@@ -57,6 +57,6 @@ spring:
           filters:
             - CustomFilter
 
-token:
-  expiration_time: 86400000
-  secret: user_token
+#token:
+#  expiration_time: 86400000
+#  secret: user_token
