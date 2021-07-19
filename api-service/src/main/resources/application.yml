@@ -57,6 +57,11 @@ spring:
           filters:
             - CustomFilter
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace
 #token:
 #  expiration_time: 86400000
 #  secret: user_token
