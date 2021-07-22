@@ -1,9 +1,9 @@
 curl -H "Content-type: application/json" -X POST http://localhost:8000/user-service/users -d '{"email": "mhlee@pay-story.co.kr", "name": "mhlee", "password": "hello"}'
 curl -H "Content-type: application/json" -X POST http://localhost:8000/user-service/users -d '{"email": "ice29@daum.net", "name": "leemh", "password": "helloworld"}'
 
-curl -H "Content-type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzQxM2UwNS0xZjU2LTQ0NDctOTIyOC0yYmUxMDI5MWY4ZTkiLCJleHAiOjE2MjY3OTE2MjJ9.QXfIqYlu0-KotjF6ph62OGlo1tbIt-n2uNevoJysTr3Q8rvAO7T7ZastfYUbp0yCOQBft4tpewJw7XKD8GVbrg" -X GET http://localhost:8000/user-service/users
-curl -H "Content-type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzQxM2UwNS0xZjU2LTQ0NDctOTIyOC0yYmUxMDI5MWY4ZTkiLCJleHAiOjE2MjY3OTE2MjJ9.QXfIqYlu0-KotjF6ph62OGlo1tbIt-n2uNevoJysTr3Q8rvAO7T7ZastfYUbp0yCOQBft4tpewJw7XKD8GVbrg" -X GET http://localhost:8000/user-service/health_check
-curl -H "Content-type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzQxM2UwNS0xZjU2LTQ0NDctOTIyOC0yYmUxMDI5MWY4ZTkiLCJleHAiOjE2MjY3OTE2MjJ9.QXfIqYlu0-KotjF6ph62OGlo1tbIt-n2uNevoJysTr3Q8rvAO7T7ZastfYUbp0yCOQBft4tpewJw7XKD8GVbrg" -X GET http://localhost:8000/user-service/actuator/health
+curl -H "Content-type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiNzM0NDU1NS1jZGQ4LTQzYmMtYmM1ZC02ZGVmNzdlNzIzODQiLCJleHAiOjE2MjY3OTI3MjF9.UdF0oYR0q0qkkvSGDcKPk8xe1QFRjXs60H2X1lJZJgbmKkp9oKVloqIed8DQdFW-sSJgu0lc-cCwV1NsdWGg1w" -X GET http://localhost:8000/user-service/users
+curl -H "Content-type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiNzM0NDU1NS1jZGQ4LTQzYmMtYmM1ZC02ZGVmNzdlNzIzODQiLCJleHAiOjE2MjY3OTI3MjF9.UdF0oYR0q0qkkvSGDcKPk8xe1QFRjXs60H2X1lJZJgbmKkp9oKVloqIed8DQdFW-sSJgu0lc-cCwV1NsdWGg1w" -X GET http://localhost:8000/user-service/health_check
+curl -H "Content-type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiNzM0NDU1NS1jZGQ4LTQzYmMtYmM1ZC02ZGVmNzdlNzIzODQiLCJleHAiOjE2MjY3OTI3MjF9.UdF0oYR0q0qkkvSGDcKPk8xe1QFRjXs60H2X1lJZJgbmKkp9oKVloqIed8DQdFW-sSJgu0lc-cCwV1NsdWGg1w" -X GET http://localhost:8000/user-service/actuator/health
 
 curl -H "Content-type: application/json" -X GET http://localhost:8000/user-service/users/24b472f5-d2a1-44d1-8b49-29ffa87e4cf7
 
