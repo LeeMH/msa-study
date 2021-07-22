@@ -19,6 +19,11 @@ spring:
     hibernate:
       ddl-auto: update
       dialect: org.hibernate.dialect.H2Dialect
+  rabiitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 
 
 eureka:
@@ -42,7 +47,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans
+        include: refresh, health, beans, httptrace, , busrefresh
 #token:
 #  expiration_time: 86400000
 #  secret: user_token
