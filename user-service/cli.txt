@@ -1,11 +1,21 @@
+export USER_ID="f3ca9f58-7aab-42da-89c2-a663e37b1f8e"
+export JWT="eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmM2NhOWY1OC03YWFiLTQyZGEtODljMi1hNjYzZTM3YjFmOGUiLCJleHAiOjE2MjcxMzQ0MjF9.WqBWbwfrc0VirImKtQbDBLo9pHET9qp507cJ3akUJCncJXIoyv1qmV8JZiP0-0UIOXbLKdIg6BPU9Dm3uNFNmw"
+
 curl -H "Content-type: application/json" -X POST http://localhost:8000/user-service/users -d '{"email": "mhlee@pay-story.co.kr", "name": "mhlee", "password": "hello"}'
 curl -H "Content-type: application/json" -X POST http://localhost:8000/user-service/users -d '{"email": "ice29@daum.net", "name": "leemh", "password": "helloworld"}'
 
-curl -H "Content-type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1MThhZTJiZi03MjEwLTQ4MGUtOTBjNS04MzZiNjgzNTcyY2IiLCJleHAiOjE2MjcwNTExMDZ9.pEUrTXKm66KD8penFDrS3-3yOKs5Ag-7bEAuURus1WRIshLG6x26KLWHdnM7E2-Cm32LxR9Y779gPzafB1GrYw" -X GET http://localhost:8000/user-service/users
-curl -H "Content-type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1MThhZTJiZi03MjEwLTQ4MGUtOTBjNS04MzZiNjgzNTcyY2IiLCJleHAiOjE2MjcwNTExMDZ9.pEUrTXKm66KD8penFDrS3-3yOKs5Ag-7bEAuURus1WRIshLG6x26KLWHdnM7E2-Cm32LxR9Y779gPzafB1GrYw" -X GET http://localhost:8000/user-service/health_check
-curl -H "Content-type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1MThhZTJiZi03MjEwLTQ4MGUtOTBjNS04MzZiNjgzNTcyY2IiLCJleHAiOjE2MjcwNTExMDZ9.pEUrTXKm66KD8penFDrS3-3yOKs5Ag-7bEAuURus1WRIshLG6x26KLWHdnM7E2-Cm32LxR9Y779gPzafB1GrYw" -X GET http://localhost:8000/user-service/actuator/health
+curl -H "Content-type: application/json" -H "Authorization: Bearer ${JWT}" -X GET http://localhost:8000/user-service/users/$USER_ID
+curl -H "Content-type: application/json" -H "Authorization: Bearer ${JWT}" -X GET http://localhost:8000/user-service/health_check
+curl -H "Content-type: application/json" -H "Authorization: Bearer ${JWT}" -X GET http://localhost:8000/user-service/actuator/health
 
-curl -H "Content-type: application/json" -X GET http://localhost:8000/user-service/users/24b472f5-d2a1-44d1-8b49-29ffa87e4cf7
+curl -H "Content-type: application/json" -X GET http://localhost:8000/user-service/users/$USER_ID
 
 curl -v -H "Content-type: application/json" -X POST http://localhost:8000/user-service/login -d '{"email": "mhlee@pay-story.co.kr", "password": "hello"}'
+
+
+
+curl -H "Content-type: application/json"  http://localhost:8000/order-service/$USER_ID/orders
+
+curl -H "Content-type: application/json" -X POST http://localhost:8000/order-service/$USER_ID/orders -d '{"productId": "12345", "qty": 2, "unitPrice": 1000}'
+
 

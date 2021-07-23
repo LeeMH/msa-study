@@ -1,5 +1,6 @@
 package me.forklift.userservice.service;
 
+import lombok.extern.slf4j.Slf4j;
 import me.forklift.userservice.dto.UserDto;
 import me.forklift.userservice.repository.UserEntity;
 import me.forklift.userservice.repository.UserRepository;
@@ -7,25 +8,35 @@ import me.forklift.userservice.vo.ResponseOrder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
     UserRepository repository;
     BCryptPasswordEncoder encoder;
+    Environment env;
+    RestTemplate restTemplate;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, BCryptPasswordEncoder encoder) {
+    public UserServiceImpl(UserRepository repository, BCryptPasswordEncoder encoder, Environment env, RestTemplate restTemplate) {
         this.repository = repository;
         this.encoder = encoder;
+        this.env = env;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -53,7 +64,15 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = new ModelMapper().map(user, UserDto.class);
 
-        List<ResponseOrder> orders = new ArrayList<>();
+        String orderUrl = String.format(env.getProperty("order_service.url"), userId);
+        log.info("api call url = {}", orderUrl);
+
+        ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(
+                orderUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<ResponseOrder>>() {
+                }
+        );
+
+        List<ResponseOrder> orders = orderListResponse.getBody();
         userDto.setOrders(orders);
 
         return userDto;

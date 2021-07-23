@@ -37,6 +37,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .hasIpAddress("192.168.55.17")
                 .and()
                 .addFilter(getAuthenticationFilter());
+
         http.headers().frameOptions().disable();
     }
 
